@@ -9,3 +9,15 @@ h1{
 .row-header{
     margin: 50px 0;
 }
+.loader {
+    display: none;
+}
+.showResult {
+    display: block!important;
+}
+.hideResult {
+    display: none;!important;
+}
+.errorsInput {
+    color: red;
+}
