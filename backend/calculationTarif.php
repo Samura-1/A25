@@ -2,17 +2,12 @@
 require_once "sdbh.php";
 class CalculationTarif extends sdbh
 {
-	protected $bd;
-	function __construct()
-	{
-		$this->bd = new sdbh();
-	}
 	public function calclTarif($data)
 	{
 		$result = [];
 		parse_str($data['data'], $parsDataArray);
 
-		$selectProductById = $this->bd->make_query("SELECT * FROM `a25_products` WHERE id = ".$parsDataArray['product']);
+		$selectProductById = $this->make_query("SELECT * FROM `a25_products` WHERE id = ".$parsDataArray['product']);
 		if (empty($selectProductById)) {
 		 	return ['errors' => 'Извинте что то пошло не так, попробуйте позже'];
 		}
@@ -35,6 +30,7 @@ class CalculationTarif extends sdbh
 		if (!isset($selectProductById[0]['TARIFF'])) {
 		 	$result['price'] = intval($selectProductById[0]['PRICE']) * $selectedDays + $totalSumService;
 		 	$result['oldPrice'] = $selectProductById[0]['PRICE'];
+		 	$result['tarif'] = 0;
 		} else {
 			$arrayTarif = unserialize($selectProductById[0]['TARIFF']);
 			$selectedPrice = null;
